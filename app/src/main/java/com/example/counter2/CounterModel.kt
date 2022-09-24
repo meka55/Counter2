@@ -24,8 +24,6 @@ class CounterModel {
         }else boolean = false
         return boolean
     }
-
-
     fun getCount():Int{
 
         return count
