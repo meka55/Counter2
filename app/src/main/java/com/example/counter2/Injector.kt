@@ -7,8 +7,8 @@ class Injector {
         fun getPresenter(): Presenter {
             return Presenter()
         }
-        fun getModel(): CounterModel{
-            return CounterModel()
+        fun getModel(): MainViewModel{
+            return MainViewModel()
         }
     }
 }

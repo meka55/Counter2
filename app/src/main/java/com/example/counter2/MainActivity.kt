@@ -16,26 +16,21 @@ class MainActivity : AppCompatActivity(), CounterView {
         presenter.attachView(this)
         initClicker()
     }
-
     private fun initClicker() {
         with(binding){
-            incrementBtn.setOnClickListener{
-                presenter.increment()
+            plusBtn.setOnClickListener{
+                presenter.plus()
                 if (presenter.changeColor()){
                     binding.counterTv.setTextColor(Color.parseColor("green"))
                 }
                 presenter.toast(this@MainActivity)
             }
-            decrementBtn.setOnClickListener {
-                presenter.decrement()
-                if (!presenter.changeColor()){
-                    binding.counterTv.setTextColor(Color.parseColor("red"))
-
-                }
+            minusBtn.setOnClickListener {
+                presenter.minus()
+                binding.counterTv.setTextColor(Color.parseColor("red"))
             }
         }
     }
-
     override fun updateCount(count: String) {
         binding.counterTv.text = count
     }

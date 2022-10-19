@@ -8,12 +8,12 @@ import com.example.counter2.MainActivity
 class Presenter {
     val model = Injector.getModel()
     lateinit var view : CounterView
-    fun increment(){
-        model.increment()
+    fun plus(){
+        model.plus()
         view.updateCount(model.getCount().toString())
     }
-    fun decrement(){
-        model.decrement()
+    fun minus(){
+        model.minus()
         view.updateCount(model.getCount().toString())
     }
     fun toast(context: Context){
