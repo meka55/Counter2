@@ -3,35 +3,45 @@ package com.example.counter2
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.example.counter2.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), CounterView {
+class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
-    private val presenter = Injector.getPresenter()
+    private var viewModel : MainViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        presenter.attachView(this)
-        initClicker()
+
+        viewModel = ViewModelProvider(this)[MainViewModel ::class.java]
+
+        setupObserves()
+        setPlus()
+        setMinus()
     }
-    private fun initClicker() {
-        with(binding){
-            plusBtn.setOnClickListener{
-                presenter.plus()
-                if (presenter.changeColor()){
-                    binding.counterTv.setTextColor(Color.parseColor("green"))
-                }
-                presenter.toast(this@MainActivity)
-            }
-            minusBtn.setOnClickListener {
-                presenter.minus()
-                binding.counterTv.setTextColor(Color.parseColor("red"))
+
+    private fun setupObserves() {
+        viewModel?.data?.observe(this){ count ->
+            binding.counterTv.text = count.toString()
+        }
+    }
+
+    private fun setPlus() {
+        binding.plusBtn.setOnClickListener {
+            viewModel?.plus()
+            if (viewModel?.count == 10){
+                binding.counterTv.setTextColor(Color.parseColor("green"))
             }
         }
     }
-    override fun updateCount(count: String) {
-        binding.counterTv.text = count
+
+    private fun setMinus() {
+        binding.minusBtn.setOnClickListener{
+            viewModel?.minus()
+            }
+        }
     }
-}
+
