@@ -33,7 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding.plusBtn.setOnClickListener {
             viewModel?.plus()
             if (viewModel?.count == 10){
-                binding.counterTv.setTextColor(Color.parseColor("green"))
+                binding.counterTv.setTextColor(Color.parseColor("#1DCC26"))
+            }
+            else{
+                binding.counterTv.setTextColor(Color.parseColor("#FFFFFFFF"))
+
             }
         }
     }
